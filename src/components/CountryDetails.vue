@@ -9,6 +9,17 @@ const routeParam = route.params.alpha3Code;
 const countries = ref([]);
 const country = ref();
 const imgUrl = ref();
+const area = ref();
+const borders = ref();
+const capital = ref();
+
+const a3cToName = (a3c) => {
+  const country = countries.value.find(
+    (c) => c.alpha3Code === a3c
+  );
+  
+  return country.name.common;
+};
 
 const fetchCountries = async () => {
   try {
@@ -18,7 +29,12 @@ const fetchCountries = async () => {
     country.value = countries.value.find(
       (country) => (country.alpha3Code === routeParam)
     );
+
     imgUrl.value = ("https://flagpedia.net/data/flags/icon/72x54/" + country.value.alpha2Code.toLowerCase() + ".png")
+    area.value = country.value.area
+    capital.value = country.value.capital
+    borders.value = country.value.borders
+    
     
   } catch (error) {
     console.error("Error cargando el archivo JSON:", error);
@@ -47,9 +63,13 @@ watch(() => route.params.alpha3Code, (newAlpha3Code) => {
         <div v-if="country && imgUrl">
             <img :src = imgUrl>
             <h2>{{country.name.common}}</h2>
-            <p>Capital</p>
-            <p>Area</p>
-            <p>Borders</p>
+            <p>Capital</p><p>{{ capital[0] }}</p><br>
+            <p>Area</p><p>{{ area }}</p><br>
+            <p>Borders</p><ul>
+                <li v-for="a3c in borders" :key="country.alpha3Code">
+                    {{ a3cToName(a3c) }}
+                </li>
+            </ul>
         </div>
       </div>
     </div>
