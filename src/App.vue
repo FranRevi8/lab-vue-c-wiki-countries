@@ -6,8 +6,9 @@ import Navbar from './components/Navbar.vue';
 <template>
   <div class="app">
     <Navbar></Navbar>
+    <router-view></router-view>
   </div>
 </template>
 
-<style>
+<style scoped>
 </style>
