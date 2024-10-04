@@ -72,7 +72,7 @@ watch(
           <br />
           <div class="block">
           <p>Area</p>
-          <p>{{ area }}</p>
+          <p>{{ area }} km<sup>2</sup></p>
           </div>
           <div class="separator"></div>
           <br />
